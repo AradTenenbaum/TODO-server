@@ -2,21 +2,18 @@ const express = require('express');
 const mongoose = require('mongoose');
 
 const {DB_CONNECT} = require('./config');
-const db = require('./pgdb');
+const userRoute = require('./routes/users');
 
-// const getAll = async () => {
-//     try {
-//         const { rows } = await db.query('SELECT * FROM users WHERE test = $1', ['test']);
-//         console.table(rows);
-//     } catch (error) {
-//         console.error(error['name']);
-//     }
-// };
-
-// getAll();
 
 const app = express();
 app.use(express.json());
+
+const cors = require('cors');
+app.use(cors());
+
+// Routes
+app.use('/user', userRoute);
+
 
 // Connect DB
 mongoose.connect(DB_CONNECT,
