@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 
 const {DB_CONNECT} = require('./config');
 const userRoute = require('./routes/users');
-
+const taskRoute = require('./routes/tasks');
 
 const app = express();
 app.use(express.json());
@@ -13,6 +13,7 @@ app.use(cors());
 
 // Routes
 app.use('/user', userRoute);
+app.use('/task', taskRoute);
 
 
 // Connect DB

@@ -2,6 +2,10 @@ const mongoose = require('mongoose');
 const {UNDONE} = require('../constants/todoStatus');
 
 const taskSchema = new mongoose.Schema({
+    // PostgreSQL id
+    ownId : {
+        type: Number,
+    },
     username: {
         type: String,
         required: true,
@@ -14,8 +18,7 @@ const taskSchema = new mongoose.Schema({
         max: 1024
     },
     status: {
-        type: String,
-        required: true,  
+        type: String, 
         default: UNDONE
     }
 });
