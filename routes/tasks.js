@@ -1,5 +1,7 @@
 const router = require("express").Router();
+const jwt = require('jsonwebtoken');
 
+const {TOKEN_SECRET} = require('../config');
 const db = require("../pgdb");
 const Task = require("../models/Task");
 const verify = require("./verifyToken");
@@ -8,7 +10,7 @@ const { UNDONE, DONE } = require("../constants/todoStatus");
 // Get user tasks
 router.get("/tasks", verify, async (req, res) => {
   // Get the username
-  const username = req.body.username;
+  const {username} = jwt.verify(req.header('auth-token'), TOKEN_SECRET);
   try {
     const { rows } = await db.query("SELECT * FROM tasks WHERE username = $1", [
       username,
